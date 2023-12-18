@@ -1,0 +1,45 @@
+/* HomePage.css */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.headerText {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: 40px;
+}
+
+.headerText h1 {
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+.subHeaderText {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin-left: 150px;
+  margin-top: 15vh;
+}
+
+.smallText {
+  font-size: 25px;
+  margin-bottom: 5px; 
+}
+
+.largeText {
+  font-size: 48px;
+}
+
+.loginButton {
+  margin-top: 15px;
+  margin-right: 40px;
+}
+
+.signupButton {
+  margin-left: 3px;
+}

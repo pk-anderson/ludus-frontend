@@ -1,0 +1,14 @@
+
+.custom-button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-family: Inter,sans-serif;
+    letter-spacing: -.8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-button:hover {
+    filter: brightness(85%);
+  }
+
