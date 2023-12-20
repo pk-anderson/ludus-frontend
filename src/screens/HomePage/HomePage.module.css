@@ -1,6 +1,10 @@
 /* HomePage.css */
 
-.container {
+.bodyHomePage {
+  background-color: #161616; /* Cor desejada para a HomePage */
+}
+
+.homeContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

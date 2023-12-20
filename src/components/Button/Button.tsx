@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import './Button.css';
 
 interface ButtonProps {
@@ -9,6 +9,7 @@ interface ButtonProps {
   textSize: number;
   textColor: string;
   borderRadius: number;
+  onClick?: MouseEventHandler<HTMLButtonElement>; 
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   textSize,
   textColor,
   borderRadius,
+  onClick,
 }) => {
   const buttonStyle = {
     height: `${height}px`,
@@ -30,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   return (
-    <button className="custom-button" style={buttonStyle}>
+    <button className="custom-button" style={buttonStyle} onClick={onClick}>
       {text}
     </button>
   );
