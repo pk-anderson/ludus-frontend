@@ -18,11 +18,10 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      console.log(email);
-      console.log(password);
+      window.alert("COMEÇOU")
       const { result, authorization } = await login(email, password);
-      console.log(result);
-      console.log(authorization);
+      console.error(result);
+      console.error(authorization);
       // Aqui você pode adicionar a lógica para redirecionar ou fazer algo com o resultado do login
     } catch (error) {
       console.error('Erro no login:', error);

@@ -34,15 +34,17 @@ function HomePage() {
         <p className={styles.smallText}>manage your</p>
         <p className={styles.largeText}>gaming profile</p>
         <div className={styles.signupButton}>
-        <Button
-          text="Create your account"
-          height={40}
-          width={300} 
-          backgroundColor="#ca8324" 
-          textSize={16}
-          textColor="#ffffff"
-          borderRadius={25}
-        />
+        <Link to="/signup">
+          <Button
+            text="Create your account"
+            height={40}
+            width={300} 
+            backgroundColor="#ca8324" 
+            textSize={16}
+            textColor="#ffffff"
+            borderRadius={25}
+          />
+        </Link>
         </div>
       </div>
       <Footer />

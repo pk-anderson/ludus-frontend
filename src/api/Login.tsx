@@ -1,5 +1,7 @@
 export async function login(email: string, password: string) {
     try {
+        window.alert(email)
+        window.alert(password)
         let request = await fetch("http://localhost:3000/auth/login", {
           method: "POST",
           headers: {
@@ -11,12 +13,9 @@ export async function login(email: string, password: string) {
             password: password,
           }),
         });
-
+        window.alert(request)
         let result = await request.json();
         let authorization = request.headers.get('authorization');
-
-        console.log(result)
-        console.log(authorization)
 
         return { result, authorization };
     } catch (error) {
