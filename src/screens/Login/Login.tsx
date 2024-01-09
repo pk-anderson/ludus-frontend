@@ -3,6 +3,7 @@ import styles from './Login.module.css';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import { login } from '../../api/Login';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -17,15 +18,12 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    try {
-      window.alert("COMEÇOU")
-      const { result, authorization } = await login(email, password);
-      console.error(result);
-      console.error(authorization);
-      // Aqui você pode adicionar a lógica para redirecionar ou fazer algo com o resultado do login
-    } catch (error) {
-      console.error('Erro no login:', error);
-    }
+    // try {
+    //   const { result, authorization } = await login(email, password);
+    //   // Aqui você pode adicionar a lógica para redirecionar ou fazer algo com o resultado do login
+    // } catch (error) {
+    //   console.error('Erro no login:', error);
+    // }
   };
 
   return (
@@ -60,16 +58,18 @@ const Login = () => {
           />
         </div>
         <div className={styles.loginButton}>
-          <Button
-            text="Sign In"
-            height={40}
-            width={120}
-            backgroundColor="#ca8324"
-            textSize={16}
-            textColor="white"
-            borderRadius={25}
-            onClick={handleLogin}
-          />
+          <Link to="/dashboard">
+            <Button
+              text="Sign In"
+              height={40}
+              width={120}
+              backgroundColor="#ca8324"
+              textSize={16}
+              textColor="white"
+              borderRadius={25}
+              onClick={handleLogin}
+            />
+          </Link>
         </div>
       </div>
     </div>

@@ -1,0 +1,72 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+    color: white;
+  }
+  
+  .userInfo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .userPhoto {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .userName {
+    font-weight: bold;
+  }
+  
+  .navbarItems {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    width: 50%;
+    margin: 0 auto;
+    justify-content: space-evenly; 
+  }
+  
+  .navbarItems li {
+    margin-right: 20px;
+  }
+  
+  .navbarItems a {
+    color: white;
+    text-decoration: none;
+    justify-content: space-around; 
+  }
+  
+  
+.searchBox {
+    display: flex;
+    align-items: center;
+    width: 250px;
+    height: 25px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px;
+    margin-left: auto;
+  }
+  
+  .searchInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    height: 100%;
+    font-size: 14px;
+    background-color: transparent; /* Torna o plano de fundo transparente */
+    color: white;
+  }
+  
+  .searchIcon {
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    cursor: pointer; /* Adiciona um cursor ao ícone para indicar que é clicável */
+  }
