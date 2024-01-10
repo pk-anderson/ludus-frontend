@@ -1,0 +1,37 @@
+.gameLibrary {
+    background-color: #333;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .libraryHeader {
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .gamesRow {
+    margin-left: 60px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 90%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+  }
+  
+  .gameCover {
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .viewAllButton {
+    margin-right: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-self: right;
+    text-align: right; 
+  }
+  
