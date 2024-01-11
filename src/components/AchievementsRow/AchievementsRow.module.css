@@ -1,10 +1,12 @@
-.gameLibrary {
+/* AchievementsRow.module.css */
+
+.achievementsRow {
     margin-top: 20px;
     display: flex;
     flex-direction: row;
   }
   
-  .libraryHeader {
+  .achievementsHeader {
     display: flex;
     align-self: center;
     flex-direction: column;
@@ -12,23 +14,30 @@
     margin-left: 10px;
   }
   
-  .gamesRow {
-    margin-left: 60px;
+  .achievementsImages {
     display: flex;
+    gap: 10px;
+    scroll-behavior: smooth;
     justify-content: space-evenly;
-    height: 50vh;
     width: 90%;
     overflow-x: auto;
-    scroll-behavior: smooth;
-    align-self: center;
   }
   
-  .gameCover {
+  .achievement {
+    text-align: center;
+  }
+  
+  .achievementImage {
+    margin-top: 10px;
     width: 120px;
-    height: 180px;
+    height: 120px;
     object-fit: cover;
     border-radius: 5px;
-    align-self: center;
+  }
+  
+  .achievementName {
+    margin-top: 5px;
+    font-size: 14px;
   }
   
   .viewAllButton {
@@ -38,4 +47,3 @@
     align-self: center;
     text-align: right; 
   }
-  
