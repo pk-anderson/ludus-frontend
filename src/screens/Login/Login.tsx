@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './Login.module.css';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
-import { login } from '../../api/Login';
+import { login } from '../../api/login';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -18,12 +18,13 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-    // try {
-    //   const { result, authorization } = await login(email, password);
-    //   // Aqui você pode adicionar a lógica para redirecionar ou fazer algo com o resultado do login
-    // } catch (error) {
-    //   console.error('Erro no login:', error);
-    // }
+    try {
+      const { result, authorization } = await login(email, password);
+      await login(email, password)
+      console.log(result, authorization)
+    } catch (error) {
+      console.error('Erro no login:', error);
+    }
   };
 
   return (
