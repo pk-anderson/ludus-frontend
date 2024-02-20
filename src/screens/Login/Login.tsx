@@ -3,11 +3,12 @@ import styles from './Login.module.css';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import { login } from '../../api/login';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -19,9 +20,12 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const { result, authorization } = await login(email, password);
+      const { result } = await login(email, password);
       await login(email, password)
-      console.log(result, authorization)
+      console.log(result)
+      console.log(result.token)
+      localStorage.setItem('token', result.token);
+      navigate('/dashboard');
     } catch (error) {
       console.error('Erro no login:', error);
     }
@@ -59,7 +63,6 @@ const Login = () => {
           />
         </div>
         <div className={styles.loginButton}>
-          <Link to="/dashboard">
             <Button
               text="Sign In"
               height={40}
@@ -70,7 +73,6 @@ const Login = () => {
               borderRadius={25}
               onClick={handleLogin}
             />
-          </Link>
         </div>
       </div>
     </div>
