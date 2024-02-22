@@ -6,6 +6,8 @@ import Login from './screens/Login/Login';
 import SignUp from './screens/SignUp/SignUp';
 import Dashboard from './screens/Dashboard/Dashboard';
 import Search from './screens/Search/Search';
+import GameDetail from './screens/GameDetail/GameDetail';
+
 
 function withLayout(Component: React.FC, userPhoto: string, userName: string) {
   return (
@@ -28,6 +30,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/dashboard" element={withLayout(Dashboard, userPhoto, userName)} />
           <Route path="/search" element={withLayout(Search, userPhoto, userName)} />
+          <Route path="/games/:id" element={withLayout(GameDetail, userPhoto, userName)} />
         </Routes>
       </Router>
     </div>
