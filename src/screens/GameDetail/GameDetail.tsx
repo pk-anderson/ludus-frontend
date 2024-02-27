@@ -1,10 +1,14 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { categoryStrings } from '../constants';
+import GameComment from '../../components/Comments/Comments';
+import { Comment } from '../../components/Comments/Comments';
+
 
 function GameDetail() {
   const { state } = useLocation();
   const game = state?.result;
+  const comments = state?.comments; 
 
   return (
     <div>
@@ -18,6 +22,10 @@ function GameDetail() {
         ))}
       </ul>
       <p>{game.summary}</p>
+      <h2>Comments:</h2>
+      {comments && comments.map((comment: Comment, index: number) => ( 
+        <GameComment key={index} comment={comment} />
+      ))}
     </div>
   );
 }

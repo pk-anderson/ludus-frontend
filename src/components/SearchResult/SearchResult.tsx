@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SearchResult.module.css';
+import { listComments } from '../../api/comments';
 
 interface Genre {
   id: number;
@@ -27,9 +28,15 @@ const SearchResult: React.FC<SearchResultProps> = ({ result }) => {
   const navigate = useNavigate();
   const defaultCoverUrl = 'nocover.png';
 
-  const handleClick = () => {
-    navigate(`/games/${result.id}`, { state: { result } });
+  const handleClick = async () => {
+    try {
+      const commentResponse = await listComments(1, 10, 'game', result.id);
+      navigate(`/games/${result.id}`, { state: { result, comments: commentResponse.result } });
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+    }
   };
+  
 
   return (
     <div className={styles.searchResult} onClick={handleClick}>
