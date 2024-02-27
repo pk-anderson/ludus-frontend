@@ -22,14 +22,13 @@ const Navbar: React.FC<NavbarProps> = ({ userPhoto, userName }) => {
 
   const handleSearchSubmit = async () => {
     try {
-      console.log(searchText)
       const response = await listGames(1, 10, searchText);
-      if (response.result.length === 0) {
+
+      if (response.length === 0) {
         alert('Not Found.');
       } else {
-        navigate('/search', { state: { results: response.result } });
+        navigate('/search', { state: { results: response, text: searchText} });
       }
-      console.log(response.result); 
     } catch (error) {
       console.error('Erro na busca:', error);
       alert('Error on finding games. Try again.');

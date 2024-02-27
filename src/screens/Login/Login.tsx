@@ -22,8 +22,6 @@ const Login = () => {
     try {
       const { result } = await login(email, password);
       await login(email, password)
-      console.log(result)
-      console.log(result.token)
       localStorage.setItem('token', result.token);
       navigate('/dashboard');
     } catch (error) {
