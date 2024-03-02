@@ -30,8 +30,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ result }) => {
 
   const handleClick = async () => {
     try {
-      const commentResponse = await listComments(1, 10, 'game', result.id);
-      navigate(`/games/${result.id}`, { state: { result, comments: commentResponse.result.comments, totalPages: commentResponse.result.totalPages } });
+      navigate(`/games/${result.id}`, { state: { result } });
     } catch (error) {
       console.error('Error fetching comments:', error);
     }

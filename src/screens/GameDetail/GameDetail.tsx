@@ -1,14 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { categoryStrings } from '../constants';
 import GameComment from '../../components/Comments/Comments';
 import { Comment } from '../../components/Comments/Comments';
-
+import { listComments } from '../../api/comments';
 
 function GameDetail() {
   const { state } = useLocation();
   const game = state?.result;
-  const comments = state?.comments; 
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1); 
+  const [hasMoreComments, setHasMoreComments] = useState(true);
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await listComments(currentPage, 10, 'game', game.id);
+        const { comments, totalPages } = response.result;
+        
+        setComments(comments);
+        setTotalPages(totalPages);
+        setHasMoreComments(currentPage < totalPages);
+        
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    };
+
+    fetchComments();
+  }, [currentPage, game.id]);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(prevPage => prevPage + 1);
+      window.scrollTo({ top: 500 });
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(prevPage => prevPage - 1);
+      window.scrollTo({ top: 500 });
+    }
+  };
 
   return (
     <div>
@@ -23,9 +58,17 @@ function GameDetail() {
       </ul>
       <p>{game.summary}</p>
       <h2>Comments:</h2>
-      {comments && comments.map((comment: Comment, index: number) => ( 
+      {comments.map((comment: Comment, index: number) => ( 
         <GameComment key={index} comment={comment} />
       ))}
+      <div>
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Anterior
+        </button>
+        <button onClick={handleNextPage} disabled={!hasMoreComments}>
+          Próximo
+        </button>
+      </div>
     </div>
   );
 }
