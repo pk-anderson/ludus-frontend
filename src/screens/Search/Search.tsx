@@ -16,27 +16,29 @@ interface SearchResultItem {
   summary: string;
 }
 
+interface SearchResultResponse {
+  games: SearchResultItem[];
+  totalPages: number;
+}
+
 const Search: React.FC = () => {
   const location = useLocation();
   const text = location.state?.text || [];
-  const totalPages = location.state?.totalPages || [];
-  console.log(totalPages)
   const [currentPage, setCurrentPage] = useState(1);
   const [searchResults, setSearchResults] = useState<SearchResultItem[]>([]);
+  const [totalPages, setTotalPages] = useState(1); 
   const [hasMoreResults, setHasMoreResults] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const  result   = await listGames(currentPage, 10, text);
-        const newResults = result;
+        const { result }: { result: SearchResultResponse } = await listGames(currentPage, 10, text);
         
-        if (newResults.length > 0) {
-          setSearchResults(newResults);
-          setHasMoreResults(true); // Há mais resultados disponíveis
-        } else {
-          setHasMoreResults(false); // Não há mais resultados disponíveis
-        }
+        setSearchResults(result.games);
+        setTotalPages(result.totalPages);
+        setHasMoreResults(currentPage < result.totalPages);
+        
+        window.scrollTo({ top: 0});
       } catch (error) {
         console.error('Error fetching search results:', error);
       }
@@ -45,8 +47,8 @@ const Search: React.FC = () => {
     fetchData();
   }, [currentPage, text]);
 
-  const handleNextPage = async () => {
-    if (hasMoreResults) {
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
       setCurrentPage(prevPage => prevPage + 1);
     }
   };
@@ -66,7 +68,7 @@ const Search: React.FC = () => {
         <button onClick={handlePrevPage} disabled={currentPage === 1}>
           Anterior
         </button>
-        <button onClick={handleNextPage} disabled={!hasMoreResults}>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages || !hasMoreResults}>
           Próximo
         </button>
       </div>
