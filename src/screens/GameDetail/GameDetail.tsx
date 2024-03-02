@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { categoryStrings } from '../constants';
 import GameComment from '../../components/Comments/Comments';
 import { Comment } from '../../components/Comments/Comments';
-import { listComments } from '../../api/comments';
+import { listComments, createComment } from '../../api/comments';
 
 function GameDetail() {
   const { state } = useLocation();
@@ -12,24 +12,41 @@ function GameDetail() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1); 
   const [hasMoreComments, setHasMoreComments] = useState(true);
+  const [newComment, setNewComment] = useState('');
+
+  const fetchComments = async () => {
+    try {
+      const response = await listComments(currentPage, 10, 'game', game.id);
+      const { comments, totalPages } = response.result;
+      
+      setComments(comments);
+      setTotalPages(totalPages);
+      setHasMoreComments(currentPage < totalPages);
+      
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const response = await listComments(currentPage, 10, 'game', game.id);
-        const { comments, totalPages } = response.result;
-        
-        setComments(comments);
-        setTotalPages(totalPages);
-        setHasMoreComments(currentPage < totalPages);
-        
-      } catch (error) {
-        console.error('Error fetching comments:', error);
-      }
-    };
-
     fetchComments();
   }, [currentPage, game.id]);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await createComment(game.id, newComment, 'game');
+      fetchComments();
+      setCurrentPage(1); // Redirecionar para a primeira página após adicionar um novo comentário
+      setNewComment('');
+    } catch (error) {
+      console.error('Error adding comment:', error);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewComment(e.target.value);
+  };
 
   const handleNextPage = () => {
     if (currentPage < totalPages) {
@@ -58,6 +75,10 @@ function GameDetail() {
       </ul>
       <p>{game.summary}</p>
       <h2>Comments:</h2>
+      <form onSubmit={handleSubmit}>
+          <textarea value={newComment} onChange={handleChange} />
+          <button type="submit">Add Comment</button>
+      </form>
       {comments.map((comment: Comment, index: number) => ( 
         <GameComment key={index} comment={comment} />
       ))}
