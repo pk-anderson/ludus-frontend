@@ -18,7 +18,7 @@ function withLayout(Component: React.FC, userPhoto: string, userName: string) {
 }
 
 function App() {
-  const userPhoto = 'killua.png'; 
+  const userPhoto = 'file.jpeg'; 
   const userName = 'Username';
 
   return (

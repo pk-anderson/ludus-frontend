@@ -24,8 +24,7 @@
 
 .subHeaderText {
   display: flex;
-  flex-direction: column;
-  align-self: flex-start;
+  align-self: space-between;
   margin-left: 150px;
   margin-top: 15vh;
 }
@@ -46,4 +45,13 @@
 
 .signupButton {
   margin-left: 3px;
+}
+
+.image {
+  width: 450px; 
+  height: 275px; 
+  margin-left: 300px; 
+  margin-top: 20px;
+  box-shadow: 5px 5px 0 0 #ca8324, 
+    5px 5px 0 0 #ca8324; 
 }

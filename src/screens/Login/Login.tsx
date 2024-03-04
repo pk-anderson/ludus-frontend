@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Login.module.css';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
@@ -6,6 +6,13 @@ import { login } from '../../api/login';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  useEffect(() => {
+    document.body.classList.add(styles.bodyLogin);
+    return () => {
+      document.body.classList.remove(styles.bodyLogin);
+    };
+  }, []);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
