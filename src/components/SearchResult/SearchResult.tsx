@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './SearchResult.module.css';
-import { listComments } from '../../api/comments';
 
 interface Genre {
   id: number;

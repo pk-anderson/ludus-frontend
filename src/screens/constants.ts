@@ -1,3 +1,12 @@
+export interface DecodedToken {
+  id: number;
+  email: string;
+  sessionId: string;
+  username: string;
+  iat: number; 
+  exp: number;
+}
+
 export enum GameCategory {
   MainGame = 0,
   DlcAddon = 1,

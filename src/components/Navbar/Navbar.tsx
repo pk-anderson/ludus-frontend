@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import styles from './Navbar.module.css';
-import { listGames } from '../../api/listGames';
 import { useNavigate } from 'react-router-dom'; 
 
 interface NavbarProps {
-  userPhoto: string;
+  userPhoto?: string; 
   userName: string;
 }
 
@@ -32,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ userPhoto, userName }) => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.userInfo}>
-        <img src={userPhoto} alt="User" className={styles.userPhoto}/>
+      <img src={userPhoto} alt="User" className={styles.userPhoto}/>
         <span className={styles.userName}>{userName}</span>
       </div>
       <ul className={styles.navbarItems}>

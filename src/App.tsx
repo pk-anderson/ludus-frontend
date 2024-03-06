@@ -9,30 +9,28 @@ import Search from './screens/Search/Search';
 import GameDetail from './screens/GameDetail/GameDetail';
 
 
-function withLayout(Component: React.FC, userPhoto: string, userName: string) {
+function withLayout(Component: React.FC) {
   return (
-    <Layout userPhoto={userPhoto} userName={userName}>
+    <Layout>
       <Component />
     </Layout>
   );
 }
 
 function App() {
-  const userPhoto = 'file.jpeg'; 
-  const userName = 'Username';
 
   return (
     <div className="App">
-      <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/dashboard" element={withLayout(Dashboard, userPhoto, userName)} />
-          <Route path="/search" element={withLayout(Search, userPhoto, userName)} />
-          <Route path="/games/:id" element={withLayout(GameDetail, userPhoto, userName)} />
-        </Routes>
-      </Router>
+        <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/dashboard" element={withLayout(Dashboard)} />
+            <Route path="/search" element={withLayout(Search)} />
+            <Route path="/games/:id" element={withLayout(GameDetail)} />
+          </Routes>
+        </Router>
     </div>
   );
 }
