@@ -45,13 +45,6 @@ const SearchResult: React.FC<SearchResultProps> = ({ result }) => {
       )}
       <div className={styles.details}>
         <h2 className={styles.title}>{result.name}</h2>
-        {result.genres && (
-          <ul className={styles.genreList}>
-            {result.genres.map(genre => (
-              <li key={genre.id}>{genre.name}</li>
-            ))}
-          </ul>
-        )}
         <p className={styles.summary}>{result.summary}</p>
       </div>
     </div>

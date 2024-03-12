@@ -61,15 +61,16 @@ const Search: React.FC = () => {
 
   return (
     <div className={styles.searchContainer}>
+      <h1 className={styles.resultsHeader}>Results for: {text}</h1>
       {searchResults.map((result: SearchResultItem) => (
         <SearchResult key={result.id} result={result} />
       ))}
       <div className={styles.pagination}>
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Anterior
+        <button className={styles.previousButton} onClick={handlePrevPage} disabled={currentPage === 1}>
+          Previous
         </button>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages || !hasMoreResults}>
-          Próximo
+        <button className={styles.nextButton} onClick={handleNextPage} disabled={currentPage === totalPages || !hasMoreResults}>
+          Next
         </button>
       </div>
     </div>
