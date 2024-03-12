@@ -7,6 +7,7 @@ import SignUp from './screens/SignUp/SignUp';
 import Dashboard from './screens/Dashboard/Dashboard';
 import Search from './screens/Search/Search';
 import GameDetail from './screens/GameDetail/GameDetail';
+import Collection from './screens/Collection/Collection';
 
 
 function withLayout(Component: React.FC) {
@@ -29,6 +30,7 @@ function App() {
             <Route path="/dashboard" element={withLayout(Dashboard)} />
             <Route path="/search" element={withLayout(Search)} />
             <Route path="/games/:id" element={withLayout(GameDetail)} />
+            <Route path="/mycollection" element={withLayout(Collection)} />
           </Routes>
         </Router>
     </div>

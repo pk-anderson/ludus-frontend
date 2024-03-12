@@ -19,8 +19,8 @@ function Dashboard() {
 
   const defaultProfilePic = 'nophoto.jpg';
 
-  const handleGameClick = (game: any) => {
-    navigate(`/games/${game.id}`, { state: { game } });
+  const handleSeeAll = async () => {
+        navigate('/mycollection', { state: { games: userData.games } });
   };
 
   return (
@@ -52,6 +52,7 @@ function Dashboard() {
                       textSize={16}
                       textColor="#ffffff"
                       borderRadius={25}
+                      onClick={handleSeeAll}
                     />
                   </div>
                 <div className={styles.dividerContainer}>
