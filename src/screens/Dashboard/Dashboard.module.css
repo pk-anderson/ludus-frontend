@@ -11,14 +11,13 @@
 .userInfo {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .userPhotoContainer {
   display: flex;
   flex-direction: row;
   margin-top: 30px;
-  margin-left: 60px;
+  margin-left: 40px;
 }
 
 .userPhoto {
@@ -29,11 +28,11 @@
 
 .userData {
   margin-top: 30px;
-  margin-right: 50px;
+  margin-left: 75px;
 }
 
 .username {
-  margin-top: 30px;
+  margin-top: 20px;
   margin-left: 30px;
   font-size: 25px; 
   font-weight: bold;
@@ -41,4 +40,28 @@
 
 .userPoints {
   margin: 0;
+}
+
+.userContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.myCollection {
+  font-size: 20px;
+  margin-left: 30px;
+}
+
+.collectionContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.divider {
+  width: 1000px;
+  margin-top: 10px;
+  margin-left: 30px;
+  border: none;
+  border-bottom: 1px solid white;
 }

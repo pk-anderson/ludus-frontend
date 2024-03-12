@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Dashboard.module.css';
+import Button from '../../components/Button/Button';
 
 function Dashboard() {
   const [userData, setUserData] = useState<any>(null); 
@@ -18,13 +19,30 @@ function Dashboard() {
     <div className={styles.dashboardContainer}>
       {userData && (
         <div className={styles.userInfo}>
-          <div className={styles.userPhotoContainer}>
-            {userData.profile_pic ? (
-              <img src={userData.profile_pic} alt="User" className={styles.userPhoto} />
-            ) : (
-              <img src={defaultProfilePic} alt="Default User" className={styles.userPhoto} />
-            )}
-            <p className={styles.username}>{userData.username}</p>
+          <div className={styles.userContainer}>
+            <div className={styles.userPhotoContainer}>
+              {userData.profile_pic ? (
+                <img src={userData.profile_pic} alt="User" className={styles.userPhoto} />
+              ) : (
+                <img src={defaultProfilePic} alt="Default User" className={styles.userPhoto} />
+              )}
+              <div className={styles.userNameContainer}>
+                <p className={styles.username}>{userData.username}</p>
+                  <div className={styles.collectionContainer}>
+                    <p className={styles.myCollection}>My Collection</p>
+                    <Button
+                      text="See All"
+                      height={40}
+                      width={80} 
+                      backgroundColor="#ca8324" 
+                      textSize={16}
+                      textColor="#ffffff"
+                      borderRadius={25}
+                    />
+                  </div>
+                <hr className={styles.divider} />
+              </div>
+            </div>
           </div>
           <div className={styles.userData}>
             {userData.total_points && (
