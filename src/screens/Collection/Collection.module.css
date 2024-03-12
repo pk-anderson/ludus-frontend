@@ -1,0 +1,15 @@
+.dividerContainer {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+  
+.dividerButton {
+    margin-right: 30px;
+    margin-bottom: 15px;
+    align-self: flex-end; 
+}
+
+.collectionDivider {
+    width: 95%; 
+  }

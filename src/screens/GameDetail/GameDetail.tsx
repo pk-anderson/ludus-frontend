@@ -38,7 +38,7 @@ function GameDetail() {
     try {
       await createComment(game.id, newComment, 'game');
       fetchComments();
-      setCurrentPage(1); // Redirecionar para a primeira página após adicionar um novo comentário
+      setCurrentPage(1); 
       setNewComment('');
     } catch (error) {
       console.error('Error adding comment:', error);
