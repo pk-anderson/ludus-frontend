@@ -2,9 +2,6 @@
   background-color: #2c2c2c;
   color: white;
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
   padding: 20px;
 }
 
@@ -15,7 +12,7 @@
 
 .userPhotoContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-top: 30px;
   margin-left: 40px;
 }
@@ -27,29 +24,32 @@
 }
 
 .userData {
-  margin-top: 30px;
-  margin-left: 75px;
+  margin-left: 30px;
+}
+
+.userNameContainer{
+  margin-top: 25px;
 }
 
 .username {
-  margin-top: 20px;
   margin-left: 30px;
   font-size: 25px; 
   font-weight: bold;
 }
 
-.userPoints {
-  margin: 0;
-}
-
 .userContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .myCollection {
   font-size: 20px;
   margin-left: 30px;
+}
+
+.dividerContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 .collectionContainer {
@@ -65,3 +65,29 @@
   border: none;
   border-bottom: 1px solid white;
 }
+
+.gamesContainer {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-around;
+}
+
+.gameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.gameCover {
+  width: 140px;
+  height: 180px;
+  margin-bottom: 10px;
+}
+
+.gameTitle {
+  font-size: 14px;
+  text-align: center;
+  margin: 0;
+}
+

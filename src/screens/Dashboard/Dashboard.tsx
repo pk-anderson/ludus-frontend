@@ -9,6 +9,7 @@ function Dashboard() {
     const userDataString = localStorage.getItem('user');
     if (userDataString) {
       const userData = JSON.parse(userDataString);
+      console.log(userData)
       setUserData(userData);
     }
   }, []);
@@ -26,6 +27,12 @@ function Dashboard() {
               ) : (
                 <img src={defaultProfilePic} alt="Default User" className={styles.userPhoto} />
               )}
+              <div className={styles.userData}>
+                {userData.total_points && (
+                  <h2 className={styles.userPoints}>{userData.total_points} Points</h2>
+                )}
+              </div>
+            </div>
               <div className={styles.userNameContainer}>
                 <p className={styles.username}>{userData.username}</p>
                   <div className={styles.collectionContainer}>
@@ -40,14 +47,18 @@ function Dashboard() {
                       borderRadius={25}
                     />
                   </div>
-                <hr className={styles.divider} />
+                <div className={styles.dividerContainer}>
+                  <hr className={styles.divider} />
+                  <div className={styles.gamesContainer}>
+                    {userData.games && userData.games.slice(0, 4).map((game: any) => (
+                      <div key={game.id} className={styles.gameContainer}>
+                        <img src={game.cover?.url} alt={game.name} className={styles.gameCover} />
+                        <p className={styles.gameTitle}>{game.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className={styles.userData}>
-            {userData.total_points && (
-              <h2 className={styles.userPoints}>{userData.total_points} Points</h2>
-            )}
           </div>
         </div>
       )}
