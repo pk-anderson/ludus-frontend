@@ -69,6 +69,7 @@
 .gamesContainer {
   display: flex;
   margin-top: 20px;
+  margin-left: 40px;
   justify-content: space-around;
 }
 
@@ -83,11 +84,17 @@
   width: 140px;
   height: 180px;
   margin-bottom: 10px;
+  border: 2px solid black; 
 }
 
 .gameTitle {
   font-size: 14px;
   text-align: center;
   margin: 0;
+  color: white;
+}
+
+.link {
+  text-decoration: none;
 }
 

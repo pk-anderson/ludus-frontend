@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Dashboard.module.css';
 import Button from '../../components/Button/Button';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
   const [userData, setUserData] = useState<any>(null); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userDataString = localStorage.getItem('user');
@@ -15,6 +18,10 @@ function Dashboard() {
   }, []);
 
   const defaultProfilePic = 'nophoto.jpg';
+
+  const handleGameClick = (game: any) => {
+    navigate(`/games/${game.id}`, { state: { game } });
+  };
 
   return (
     <div className={styles.dashboardContainer}>
@@ -51,10 +58,12 @@ function Dashboard() {
                   <hr className={styles.divider} />
                   <div className={styles.gamesContainer}>
                     {userData.games && userData.games.slice(0, 4).map((game: any) => (
-                      <div key={game.id} className={styles.gameContainer}>
-                        <img src={game.cover?.url} alt={game.name} className={styles.gameCover} />
-                        <p className={styles.gameTitle}>{game.name}</p>
-                      </div>
+                      <Link className={styles.link} to={`/games/${game.id}`} state={{ result: game }}>
+                        <div key={game.id} className={styles.gameContainer}>
+                          <img src={game.cover?.url} alt={game.name} className={styles.gameCover} />
+                          <p className={styles.gameTitle}>{game.name}</p>
+                        </div>
+                      </Link>
                     ))}
                   </div>
                 </div>

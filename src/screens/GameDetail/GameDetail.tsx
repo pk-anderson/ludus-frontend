@@ -8,6 +8,7 @@ import { listComments, createComment } from '../../api/comments';
 function GameDetail() {
   const { state } = useLocation();
   const game = state?.result;
+  console.log(game)
   const [comments, setComments] = useState<Comment[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1); 
