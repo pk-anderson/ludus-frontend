@@ -41,13 +41,13 @@
   }
   
   .addCommentContainer textarea {
-    width: calc(100% - 16px); /* Considerando o padding de 8px */
-    height: 25px; /* Altura ajustável conforme necessário */
+    width: calc(100% - 16px); 
+    height: 25px; 
     padding: 8px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    resize: none; /* Impede a redimensionamento do textarea */
+    resize: none; 
   }
 
 .commentsListContainer{
