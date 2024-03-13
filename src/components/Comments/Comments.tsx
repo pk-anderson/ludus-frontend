@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Comments.module.css'; 
 
 export interface Comment {
   username: string;
@@ -13,11 +14,15 @@ interface GameCommentProps {
 
 const GameComment: React.FC<GameCommentProps> = ({ comment }) => {
   return (
-    <div>
-      <h3>{comment.username}</h3>
-      <p>{comment.content}</p>
-      <p>Likes: {comment.like_count}</p>
-      <p>Dislikes: {comment.dislike_count}</p>
+    <div className={styles.commentContainer}>
+      <div className={styles.contentContainer}>
+        <h3 className={styles.commentAuthor}>{comment.username}</h3>
+        <p className={styles.commentContent}>{comment.content}</p>
+      </div>
+      <div className={styles.likesContainer}>
+        <i className={`fas fa-thumbs-up ${styles.likeIcon}`}></i>
+        <p className={styles.commentLikes}>{comment.like_count}</p>
+      </div>
     </div>
   );
 };
