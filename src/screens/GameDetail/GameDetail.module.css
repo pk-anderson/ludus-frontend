@@ -1,0 +1,102 @@
+
+.commentsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+.addCommentContainer{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.addCommentButton{
+  width: 120px;
+  height: 40px;
+  background-color: #ca8324;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 15px;
+  margin-top: 2px;
+  font-family: Inter,sans-serif;
+}
+
+.addCommentButton:hover {
+    background-color: #b37220;
+}
+
+.commentsTitle {
+    display: flex;
+    justify-content: center;
+}
+  
+  .addCommentContainer form {
+    width: 70%;
+  }
+  
+  .addCommentContainer textarea {
+    width: calc(100% - 16px); /* Considerando o padding de 8px */
+    height: 25px; /* Altura ajustável conforme necessário */
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none; /* Impede a redimensionamento do textarea */
+  }
+
+.commentsListContainer{
+    margin-top: 15px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .previousButton,
+  .nextButton {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-family: Inter,sans-serif;
+    letter-spacing: -.8px;
+    transition: background-color 0.3s ease;
+    height: 40px;
+    width: 120px;
+    font-size: 16px;
+    border-radius: 25px;
+  }
+  
+  .previousButton {
+    background-color: white;
+    color: black;
+  }
+  
+  .previousButton:hover {
+    filter: brightness(85%);
+  }
+  
+  .nextButton {
+    margin-left: 25px;
+    background-color: #ca8324;
+    color: white;
+  }
+  
+  .nextButton:hover {
+    filter: brightness(85%);
+  }
+  
+  .previousButton:disabled,
+  .nextButton:disabled {
+    background-color: #555; 
+    color: #999; 
+    cursor: not-allowed;
+  }

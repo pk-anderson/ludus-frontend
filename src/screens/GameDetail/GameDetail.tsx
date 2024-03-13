@@ -4,11 +4,11 @@ import { categoryStrings } from '../constants';
 import GameComment from '../../components/Comments/Comments';
 import { Comment } from '../../components/Comments/Comments';
 import { listComments, createComment } from '../../api/comments';
+import styles from './GameDetail.module.css';
 
 function GameDetail() {
   const { state } = useLocation();
   const game = state?.result;
-  console.log(game)
   const [comments, setComments] = useState<Comment[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1); 
@@ -19,7 +19,6 @@ function GameDetail() {
     try {
       const response = await listComments(currentPage, 10, 'game', game.id);
       const { comments, totalPages } = response.result;
-      
       setComments(comments);
       setTotalPages(totalPages);
       setHasMoreComments(currentPage < totalPages);
@@ -75,20 +74,26 @@ function GameDetail() {
         ))}
       </ul>
       <p>{game.summary}</p>
-      <h2>Comments:</h2>
-      <form onSubmit={handleSubmit}>
-          <textarea value={newComment} onChange={handleChange} />
-          <button type="submit">Add Comment</button>
-      </form>
-      {comments.map((comment: Comment, index: number) => ( 
-        <GameComment key={index} comment={comment} />
-      ))}
-      <div>
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Anterior
+      <div className={styles.commentsContainer}>
+        <h2 className={styles.commentsTitle}>Comments:</h2>
+        <div className={styles.addCommentContainer}>
+          <form className={styles.form} onSubmit={handleSubmit}>
+              <textarea value={newComment} onChange={handleChange} />
+          </form>
+              <button className={styles.addCommentButton}  type="submit">Add Comment</button>
+        </div>
+        <div className={styles.commentsListContainer}>
+          {comments.map((comment: Comment, index: number) => ( 
+              <GameComment key={index} comment={comment} />
+            ))}
+        </div>
+      </div>
+      <div className={styles.pagination}>
+        <button className={styles.previousButton} onClick={handlePrevPage} disabled={currentPage === 1}>
+          Previous
         </button>
-        <button onClick={handleNextPage} disabled={!hasMoreComments}>
-          Próximo
+        <button className={styles.nextButton} onClick={handleNextPage} disabled={!hasMoreComments}>
+          Next
         </button>
       </div>
     </div>

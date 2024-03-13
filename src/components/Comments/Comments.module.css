@@ -2,7 +2,7 @@
   background-color: #353535;
   color: #fff;
   border-radius: 5px;
-  padding: 8px;
+  padding: 4px;
   margin-bottom: 5px;
   border: 1px solid #555;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -13,10 +13,26 @@
   justify-content: space-between;
 }
 
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.photoContainer {
+  margin-left: 10px;
+}
+
+.authorContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .likesContainer {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  margin-right: 15px;
 }
   
   .commentAuthor {
@@ -30,4 +46,12 @@
   .likeIcon {
     margin-right: 6px;
     margin-bottom: 20px;
+  }
+
+  .userPhoto {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 1px solid black; 
   }
