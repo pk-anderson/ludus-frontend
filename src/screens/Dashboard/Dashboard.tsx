@@ -3,18 +3,38 @@ import styles from './Dashboard.module.css';
 import Button from '../../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode'
+import { findUser } from '../../api/user';
+import { DecodedToken } from '../constants';
 
 function Dashboard() {
   const [userData, setUserData] = useState<any>(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userDataString = localStorage.getItem('user');
-    if (userDataString) {
-      const userData = JSON.parse(userDataString);
-      console.log(userData)
-      setUserData(userData);
-    }
+    const fetchData = async () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const decodedToken: any = jwtDecode<DecodedToken>(token);
+          if (decodedToken && 'id' in decodedToken) {
+            const userId: number = decodedToken.id;
+            const user = await findUser(userId);
+            localStorage.setItem('user', JSON.stringify(user.result));
+            console.log(user.result.games)
+            setUserData(user.result);
+          } else {
+            console.error('Invalid token');
+          }
+        } catch (error) {
+          console.error('Error decoding token:', error);
+        }
+      } else {
+        console.error('No token found');
+      }
+    };
+
+    fetchData();
   }, []);
 
   const defaultProfilePic = 'nophoto.jpg';

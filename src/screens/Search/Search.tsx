@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Search.module.css';
 import SearchResult from '../../components/SearchResult/SearchResult';
-import { listGames } from '../../api/listGames';
+import { listGames } from '../../api/games';
 
 interface SearchResultItem {
   id: number;

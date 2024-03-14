@@ -16,7 +16,6 @@ interface GameCommentProps {
 const GameComment: React.FC<GameCommentProps> = ({ comment }) => {
   const defaultPhoto = '/nophoto.jpg'
   const userPhoto = comment?.profile_pic || defaultPhoto; 
-  console.log(userPhoto)
   return (
     <div className={styles.commentContainer}>
       <div className={styles.contentContainer}>

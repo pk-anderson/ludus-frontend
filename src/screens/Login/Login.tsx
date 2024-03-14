@@ -4,9 +4,6 @@ import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 import { login } from '../../api/login';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode'
-import { findUser } from '../../api/user';
-import { DecodedToken } from '../constants';
 
 const Login = () => {
   useEffect(() => {
@@ -33,15 +30,7 @@ const Login = () => {
       const { result } = await login(email, password);
       await login(email, password)
       localStorage.setItem('token', result.token);
-      const decodedToken = jwtDecode<DecodedToken>(result.token);
-      if (decodedToken && 'id' in decodedToken) {
-        const userId: number = decodedToken.id;
-        const user = await findUser(userId) 
-        localStorage.setItem('user', JSON.stringify(user.result));
-        navigate('/dashboard');
-      } else {
-        console.error('Error on login');
-      }
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login Error: ', error);
     }

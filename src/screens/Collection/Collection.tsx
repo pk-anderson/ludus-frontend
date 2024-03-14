@@ -6,7 +6,6 @@ import Button from '../../components/Button/Button';
 const Collection: React.FC = () => {
     const location = useLocation();
     const games = location.state?.games || [];
-    console.log(games)
   return (
     <div className={styles.myCollectionContainer}>
       <div className={styles.dividerContainer}>

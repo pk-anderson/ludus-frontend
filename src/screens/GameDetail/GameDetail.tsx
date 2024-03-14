@@ -5,6 +5,12 @@ import GameComment from '../../components/Comments/Comments';
 import { Comment } from '../../components/Comments/Comments';
 import { listComments, createComment } from '../../api/comments';
 import styles from './GameDetail.module.css';
+import Button from '../../components/Button/Button';
+import { findGameDetails } from '../../api/games';
+import { 
+  addToLibrary,
+  removeFromLibrary
+ } from '../../api/userLibrary';
 
 function GameDetail() {
   const { state } = useLocation();
@@ -14,6 +20,7 @@ function GameDetail() {
   const [totalPages, setTotalPages] = useState(1); 
   const [hasMoreComments, setHasMoreComments] = useState(true);
   const [newComment, setNewComment] = useState('');
+  const [gameInLibrary, setGameInLibrary] = useState(false);
 
   const fetchComments = async () => {
     try {
@@ -28,8 +35,19 @@ function GameDetail() {
     }
   };
 
+  const fetchGameDetails = async () => {
+    try {
+      const data = await findGameDetails(game.id);
+      setGameInLibrary(data.result.game_in_library);
+      console.log(data)     
+    } catch (error) {
+      console.error('Error fetching game details:', error);
+    }
+  };
+
   useEffect(() => {
     fetchComments();
+    fetchGameDetails();
   }, [currentPage, game.id]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,6 +64,24 @@ function GameDetail() {
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewComment(e.target.value);
+  };
+
+  const handleAddToLibrary = async () => {
+    try {
+      await addToLibrary(game.id); 
+      setGameInLibrary(true); 
+    } catch (error) {
+      console.error('Error adding game to library:', error);
+    }
+  };
+
+  const handleRemoveFromLibrary = async () => {
+    try {
+      await removeFromLibrary(game.id); 
+      setGameInLibrary(false); 
+    } catch (error) {
+      console.error('Error removing game from library:', error);
+    }
   };
 
   const handleNextPage = () => {
@@ -73,6 +109,31 @@ function GameDetail() {
           <li key={genre.id}>{genre.name}</li>
         ))}
       </ul>
+      <div>
+      {gameInLibrary ? (
+          <Button
+            text="Remove From Collection"
+            height={40}
+            width={160} 
+            backgroundColor="#ff4d4d" 
+            textSize={16}
+            textColor="#ffffff"
+            borderRadius={25}
+            onClick={handleRemoveFromLibrary}
+          />
+        ) : (
+          <Button
+            text="Add to Collection"
+            height={40}
+            width={120} 
+            backgroundColor="#32CD32" 
+            textSize={16}
+            textColor="#ffffff"
+            borderRadius={25}
+            onClick={handleAddToLibrary}
+          />
+        )}
+      </div>
       <p>{game.summary}</p>
       <div className={styles.commentsContainer}>
         <h2 className={styles.commentsTitle}>Comments:</h2>
