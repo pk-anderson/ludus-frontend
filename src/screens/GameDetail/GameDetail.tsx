@@ -102,7 +102,7 @@ function GameDetail() {
     <div>
       <div className={styles.gameDetailContainer}>
         <div className={styles.basicInfoContainer}>
-          <h1>{game.name}</h1>
+          <h1 className={styles.gameTitle}>{game.name}</h1>
           <div className={styles.imageContainer}>
             <img className={styles.cover} src={game.cover.url} alt={game.name} />
           </div>

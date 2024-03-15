@@ -5,6 +5,12 @@
   background-color: #333;
 }
 
+.gameTitle {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+
 .basicInfoContainer {
  display: flex;
  flex-direction: column;
