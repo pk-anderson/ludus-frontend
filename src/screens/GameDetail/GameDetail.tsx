@@ -11,6 +11,10 @@ import {
   addToLibrary,
   removeFromLibrary
 } from '../../api/userLibrary';
+import { 
+  findRating,
+  saveRating
+ } from '../../api/ratings';
 
 function GameDetail() {
   const { state } = useLocation();
@@ -21,6 +25,7 @@ function GameDetail() {
   const [hasMoreComments, setHasMoreComments] = useState(true);
   const [newComment, setNewComment] = useState('');
   const [gameInLibrary, setGameInLibrary] = useState(false);
+  const [rating, setRating] = useState<number | null>(null); // State para a classificação do jogo
   const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
   const currentUserId = storedUser.id || 0;
 
@@ -41,6 +46,7 @@ function GameDetail() {
     try {
       const data = await findGameDetails(game.id);
       setGameInLibrary(data.result.game_in_library);
+      setRating(data.result.rating); // Define a classificação atual do jogo
     } catch (error) {
       console.error('Error fetching game details:', error);
     }
@@ -87,13 +93,22 @@ function GameDetail() {
     }
   };
 
+  const handleRatingClick = async (ratingValue: number) => {
+    try {
+      await saveRating(game.id, ratingValue);
+      setRating(ratingValue); 
+    } catch (error) {
+      console.error('Error saving rating:', error);
+    }
+  };
+
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(prevPage => prevPage + 1);
       window.scrollTo({ top: 500 });
     }
   };
-
+  
   const handlePrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage(prevPage => prevPage - 1);
@@ -125,35 +140,48 @@ function GameDetail() {
                     </p>
                   </div>
                 <div className={styles.buttonContainer}>
-                {gameInLibrary ? (
-                  <Button
-                    text="Remove From Collection"
-                    height={40}
-                    width={160}
-                    backgroundColor="#ff4d4d"
-                    textSize={16}
-                    textColor="#ffffff"
-                    borderRadius={25}
-                    onClick={handleRemoveFromLibrary}
-                  />
-                ) : (
-                  <Button
-                    text="Add to Collection"
-                    height={40}
-                    width={120}
-                    backgroundColor="#32CD32"
-                    textSize={16}
-                    textColor="#ffffff"
-                    borderRadius={25}
-                    onClick={handleAddToLibrary}
-                  />
-                )}
-              </div>
-              </div>
-              <div className={styles.summaryContainer}>
-                <h2>Summary</h2>
-                <p className={styles.summary}>{game.summary}</p>
-              </div>
+                  {gameInLibrary ? (
+                    <Button
+                      text="Remove From Collection"
+                      height={40}
+                      width={160}
+                      backgroundColor="#ff4d4d"
+                      textSize={16}
+                      textColor="#ffffff"
+                      borderRadius={25}
+                      onClick={handleRemoveFromLibrary}
+                    />
+                  ) : (
+                    <Button
+                      text="Add to Collection"
+                      height={40}
+                      width={120}
+                      backgroundColor="#32CD32"
+                      textSize={16}
+                      textColor="#ffffff"
+                      borderRadius={25}
+                      onClick={handleAddToLibrary}
+                    />
+                  )}
+                  <div className={styles.ratingContainer}>
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <span
+                        key={index}
+                        className={`${styles.star} ${
+                          index < (rating ?? 0) ? styles.filled : ''
+                        }`}
+                        onClick={() => handleRatingClick(index + 1)}
+                      >
+                        &#9733;
+                      </span>
+                    ))}
+                </div>
+                </div>
+                </div>
+                <div className={styles.summaryContainer}>
+                  <h2>Summary</h2>
+                  <p className={styles.summary}>{game.summary}</p>
+                </div>
             </div>
           </div>
         </div>
