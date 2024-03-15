@@ -95,12 +95,12 @@
     justify-content: center;
 }
   
-  .addCommentContainer form {
+  .addCommentContainer textarea {
     width: 70%;
   }
   
   .addCommentContainer textarea {
-    width: calc(100% - 16px); 
+    width: 70%;
     height: 25px; 
     padding: 8px;
     margin-bottom: 10px;

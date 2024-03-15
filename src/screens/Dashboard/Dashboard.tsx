@@ -21,7 +21,6 @@ function Dashboard() {
             const userId: number = decodedToken.id;
             const user = await findUser(userId);
             localStorage.setItem('user', JSON.stringify(user.result));
-            console.log(user.result.games)
             setUserData(user.result);
           } else {
             console.error('Invalid token');

@@ -21,6 +21,8 @@ function GameDetail() {
   const [hasMoreComments, setHasMoreComments] = useState(true);
   const [newComment, setNewComment] = useState('');
   const [gameInLibrary, setGameInLibrary] = useState(false);
+  const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+  const currentUserId = storedUser.id || 0;
 
   const fetchComments = async () => {
     try {
@@ -39,7 +41,6 @@ function GameDetail() {
     try {
       const data = await findGameDetails(game.id);
       setGameInLibrary(data.result.game_in_library);
-      console.log(data)
     } catch (error) {
       console.error('Error fetching game details:', error);
     }
@@ -50,9 +51,10 @@ function GameDetail() {
     fetchGameDetails();
   }, [currentPage, game.id]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     try {
+      console.log(newComment);
       await createComment(game.id, newComment, 'game');
       fetchComments();
       setCurrentPage(1);
@@ -63,6 +65,7 @@ function GameDetail() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(newComment)
     setNewComment(e.target.value);
   };
 
@@ -156,16 +159,24 @@ function GameDetail() {
         </div>
       </div>
       <div className={styles.commentsContainer}>
-        <h2 className={styles.commentsTitle}>Comments:</h2>
-        <div className={styles.addCommentContainer}>
-          <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.commentsSection}>
+          <h2 className={styles.commentsTitle}>Comments:</h2>
+          <div className={styles.addCommentContainer}>
             <textarea value={newComment} onChange={handleChange} />
-          </form>
-          <button className={styles.addCommentButton} type="submit">Add Comment</button>
+            <button
+              className={styles.addCommentButton}
+              onClick={(e) => {
+                e.preventDefault();
+                handleSubmit(e);
+              }}
+            >
+              Add Comment
+            </button>
+          </div>
         </div>
         <div className={styles.commentsListContainer}>
           {comments.map((comment: Comment, index: number) => (
-            <GameComment key={index} comment={comment} />
+            <GameComment key={index} comment={comment} currentUserId={currentUserId} fetchComments={fetchComments} />
           ))}
         </div>
       </div>
@@ -182,3 +193,5 @@ function GameDetail() {
 }
 
 export default GameDetail;
+
+
