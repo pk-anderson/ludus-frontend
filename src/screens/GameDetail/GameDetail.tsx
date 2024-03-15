@@ -7,17 +7,17 @@ import { listComments, createComment } from '../../api/comments';
 import styles from './GameDetail.module.css';
 import Button from '../../components/Button/Button';
 import { findGameDetails } from '../../api/games';
-import { 
+import {
   addToLibrary,
   removeFromLibrary
- } from '../../api/userLibrary';
+} from '../../api/userLibrary';
 
 function GameDetail() {
   const { state } = useLocation();
   const game = state?.result;
   const [comments, setComments] = useState<Comment[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1); 
+  const [totalPages, setTotalPages] = useState(1);
   const [hasMoreComments, setHasMoreComments] = useState(true);
   const [newComment, setNewComment] = useState('');
   const [gameInLibrary, setGameInLibrary] = useState(false);
@@ -29,7 +29,7 @@ function GameDetail() {
       setComments(comments);
       setTotalPages(totalPages);
       setHasMoreComments(currentPage < totalPages);
-      
+
     } catch (error) {
       console.error('Error fetching comments:', error);
     }
@@ -39,7 +39,7 @@ function GameDetail() {
     try {
       const data = await findGameDetails(game.id);
       setGameInLibrary(data.result.game_in_library);
-      console.log(data)     
+      console.log(data)
     } catch (error) {
       console.error('Error fetching game details:', error);
     }
@@ -55,7 +55,7 @@ function GameDetail() {
     try {
       await createComment(game.id, newComment, 'game');
       fetchComments();
-      setCurrentPage(1); 
+      setCurrentPage(1);
       setNewComment('');
     } catch (error) {
       console.error('Error adding comment:', error);
@@ -68,8 +68,8 @@ function GameDetail() {
 
   const handleAddToLibrary = async () => {
     try {
-      await addToLibrary(game.id); 
-      setGameInLibrary(true); 
+      await addToLibrary(game.id);
+      setGameInLibrary(true);
     } catch (error) {
       console.error('Error adding game to library:', error);
     }
@@ -77,8 +77,8 @@ function GameDetail() {
 
   const handleRemoveFromLibrary = async () => {
     try {
-      await removeFromLibrary(game.id); 
-      setGameInLibrary(false); 
+      await removeFromLibrary(game.id);
+      setGameInLibrary(false);
     } catch (error) {
       console.error('Error removing game from library:', error);
     }
@@ -100,53 +100,73 @@ function GameDetail() {
 
   return (
     <div>
-      <h1>{game.name}</h1>
-      <img src={game.cover.url} alt={game.name} style={{ maxWidth: '200px' }} />
-      <p>Category: {categoryStrings[game.category]}</p>
-      <h2>Genres:</h2>
-      <ul>
-        {game.genres && game.genres.map((genre: { id: number; name: string }) => (
-          <li key={genre.id}>{genre.name}</li>
-        ))}
-      </ul>
-      <div>
-      {gameInLibrary ? (
-          <Button
-            text="Remove From Collection"
-            height={40}
-            width={160} 
-            backgroundColor="#ff4d4d" 
-            textSize={16}
-            textColor="#ffffff"
-            borderRadius={25}
-            onClick={handleRemoveFromLibrary}
-          />
-        ) : (
-          <Button
-            text="Add to Collection"
-            height={40}
-            width={120} 
-            backgroundColor="#32CD32" 
-            textSize={16}
-            textColor="#ffffff"
-            borderRadius={25}
-            onClick={handleAddToLibrary}
-          />
-        )}
+      <div className={styles.gameDetailContainer}>
+        <div className={styles.basicInfoContainer}>
+          <h1>{game.name}</h1>
+          <div className={styles.imageContainer}>
+            <img className={styles.cover} src={game.cover.url} alt={game.name} />
+          </div>
+        </div>
+        <div className={styles.detailsContainer}>
+          <div className={styles.infoContainer}>
+            <div className={styles.infoHeader}>
+                <div className={styles.generalInfo}>
+                  <div className={styles.categoryContainer}>
+                      <p><span className={styles.label}>Category:</span> {categoryStrings[game.category]}</p>
+                      <p><span className={styles.label}>Genres:</span> {game.genres && game.genres.map((genre: { id: number; name: string }, index: number) => (
+                      <span key={genre.id}>
+                        {genre.name}
+                        {index < game.genres.length - 1 && ', '}
+                      </span>
+                    ))}
+                    </p>
+                  </div>
+                <div className={styles.buttonContainer}>
+                {gameInLibrary ? (
+                  <Button
+                    text="Remove From Collection"
+                    height={40}
+                    width={160}
+                    backgroundColor="#ff4d4d"
+                    textSize={16}
+                    textColor="#ffffff"
+                    borderRadius={25}
+                    onClick={handleRemoveFromLibrary}
+                  />
+                ) : (
+                  <Button
+                    text="Add to Collection"
+                    height={40}
+                    width={120}
+                    backgroundColor="#32CD32"
+                    textSize={16}
+                    textColor="#ffffff"
+                    borderRadius={25}
+                    onClick={handleAddToLibrary}
+                  />
+                )}
+              </div>
+              </div>
+              <div className={styles.summaryContainer}>
+                <h2>Summary</h2>
+                <p className={styles.summary}>{game.summary}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <p>{game.summary}</p>
       <div className={styles.commentsContainer}>
         <h2 className={styles.commentsTitle}>Comments:</h2>
         <div className={styles.addCommentContainer}>
           <form className={styles.form} onSubmit={handleSubmit}>
-              <textarea value={newComment} onChange={handleChange} />
+            <textarea value={newComment} onChange={handleChange} />
           </form>
-              <button className={styles.addCommentButton}  type="submit">Add Comment</button>
+          <button className={styles.addCommentButton} type="submit">Add Comment</button>
         </div>
         <div className={styles.commentsListContainer}>
-          {comments.map((comment: Comment, index: number) => ( 
-              <GameComment key={index} comment={comment} />
-            ))}
+          {comments.map((comment: Comment, index: number) => (
+            <GameComment key={index} comment={comment} />
+          ))}
         </div>
       </div>
       <div className={styles.pagination}>
