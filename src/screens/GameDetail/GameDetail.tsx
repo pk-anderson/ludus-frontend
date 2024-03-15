@@ -12,7 +12,7 @@ import {
   removeFromLibrary
 } from '../../api/userLibrary';
 import { 
-  findRating,
+  deleteRating,
   saveRating
  } from '../../api/ratings';
 
@@ -25,7 +25,7 @@ function GameDetail() {
   const [hasMoreComments, setHasMoreComments] = useState(true);
   const [newComment, setNewComment] = useState('');
   const [gameInLibrary, setGameInLibrary] = useState(false);
-  const [rating, setRating] = useState<number | null>(null); // State para a classificação do jogo
+  const [rating, setRating] = useState<number | null>(null); 
   const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
   const currentUserId = storedUser.id || 0;
 
@@ -46,7 +46,7 @@ function GameDetail() {
     try {
       const data = await findGameDetails(game.id);
       setGameInLibrary(data.result.game_in_library);
-      setRating(data.result.rating); // Define a classificação atual do jogo
+      setRating(data.result.rating); 
     } catch (error) {
       console.error('Error fetching game details:', error);
     }
@@ -60,7 +60,6 @@ function GameDetail() {
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     try {
-      console.log(newComment);
       await createComment(game.id, newComment, 'game');
       fetchComments();
       setCurrentPage(1);
@@ -71,7 +70,6 @@ function GameDetail() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(newComment)
     setNewComment(e.target.value);
   };
 
@@ -95,10 +93,15 @@ function GameDetail() {
 
   const handleRatingClick = async (ratingValue: number) => {
     try {
-      await saveRating(game.id, ratingValue);
-      setRating(ratingValue); 
+      if (ratingValue === rating) {
+        await deleteRating(game.id);
+        setRating(null); 
+      } else {
+        await saveRating(game.id, ratingValue);
+        setRating(ratingValue); 
+      }
     } catch (error) {
-      console.error('Error saving rating:', error);
+      console.error('Error saving or deleting rating:', error);
     }
   };
 
