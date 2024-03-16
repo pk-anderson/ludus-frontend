@@ -22,6 +22,7 @@ function Dashboard() {
             const user = await findUser(userId);
             localStorage.setItem('user', JSON.stringify(user.result));
             setUserData(user.result);
+            console.log(user.result.achievements)
           } else {
             console.error('Invalid token');
           }
@@ -37,6 +38,20 @@ function Dashboard() {
   }, []);
 
   const defaultProfilePic = 'nophoto.jpg';
+
+  interface AchievementProps {
+    name: string;
+  }
+  
+  function Achievement({ name }: AchievementProps) {
+    return (
+      <div className={styles.achievement}>
+        <p>{name}</p>
+        <i className="fas fa-trophy" /> 
+      </div>
+    );
+  }
+  
 
   const handleSeeAll = async () => {
         navigate('/mycollection', { state: { games: userData.games } });
@@ -57,6 +72,22 @@ function Dashboard() {
                 {userData.total_points && (
                   <h2 className={styles.userPoints}>{userData.total_points} Points</h2>
                 )}
+                <div className={styles.achievementsContainer}>
+                <div className={styles.achievementList}>
+                  {userData.achievements.slice(0, 3).map((achievement: any) => (
+                    <Achievement key={achievement.id} name={achievement.name} />
+                  ))}
+                </div>
+                <Button
+                      text="All Achievements"
+                      height={35}
+                      width={160} 
+                      backgroundColor="#ca8324" 
+                      textSize={16}
+                      textColor="#ffffff"
+                      borderRadius={25}
+                    />
+              </div>
               </div>
             </div>
               <div className={styles.userNameContainer}>
