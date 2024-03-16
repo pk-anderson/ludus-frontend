@@ -29,6 +29,7 @@ const Navbar: React.FC<NavbarProps> = ({ userPhoto, userName }) => {
   };
 
   const handleHomeClick = () => {
+    setSearchText('')
     navigate('/dashboard');
   };
 

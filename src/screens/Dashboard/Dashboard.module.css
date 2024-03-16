@@ -11,6 +11,10 @@
   margin-left: 25px;
 }
 
+.userPoints{
+  font-size: 18px;
+}
+
 .userPhotoContainer {
   display: flex;
   flex-direction: column;
