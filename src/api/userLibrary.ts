@@ -31,7 +31,6 @@ export async function addToLibrary(id: number) {
           },
         });
         let result = await request.json();
-  
         return { result };
         
     } catch (error) {

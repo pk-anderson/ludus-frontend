@@ -1,15 +1,101 @@
-.dividerContainer {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-}
-  
 .dividerButton {
-    margin-right: 30px;
+    margin-right: 65px;
     margin-bottom: 15px;
     align-self: flex-end; 
 }
 
 .collectionDivider {
-    width: 95%; 
+    border: none;
+    height: 1px;
+    background-color: #ccc;
+    margin: 0;
+    width: 90%; 
   }
+
+.myCollectionContainer {
+    padding: 20px;
+}
+
+.dividerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.gamesContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
+.gameContainer {
+    text-align: center;
+    text-decoration: none;
+}
+
+.gameLink {
+    text-decoration: none;
+}
+
+.gameContainer:hover {
+    transform: translateY(-3px);
+  }
+
+.gameCover {
+    width: 150px;
+    height: 200px;
+    object-fit: cover;
+    border: 2px solid black; 
+}
+
+.gameTitle {
+    margin-top: 5px;
+    color: white;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.previousButton,
+.nextButton {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-family: Inter, sans-serif;
+    letter-spacing: -0.8px;
+    transition: background-color 0.3s ease;
+    height: 40px;
+    width: 120px;
+    font-size: 16px;
+    border-radius: 25px;
+    margin: 0 10px;
+}
+
+.previousButton {
+    background-color: white;
+    color: black;
+}
+
+.previousButton:hover {
+    filter: brightness(85%);
+}
+
+.nextButton {
+    background-color: #ca8324;
+    color: white;
+}
+
+.nextButton:hover {
+    filter: brightness(85%);
+}
+
+.previousButton:disabled,
+.nextButton:disabled {
+    background-color: #555;
+    color: #999;
+    cursor: not-allowed;
+}
